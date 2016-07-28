@@ -5,4 +5,6 @@ RUN apt-get update && apt-get -y install git && apt-get clean && rm -r /var/lib/
 
 ENV DISABLE_FUNCTIONS ""
 
+ADD index.php /var/www/html/index.php
+
 CMD ["/configure.sh"]
