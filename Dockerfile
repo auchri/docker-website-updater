@@ -10,7 +10,7 @@ ADD index.php "${WEB_ROOT}/index.php"
 RUN rm "${WEB_ROOT}/index.html"
 
 # Add config file
-ADD config/ "${WEB_ROOT}/.config/"
+ADD config/ "/var/www/config/"
 
 ADD start.sh /start.sh
 
