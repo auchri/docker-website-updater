@@ -60,8 +60,8 @@ function isHeaderSet() {
 function updateWebSite($sshUrl, $branch, $directory) {
     mkdir($directory, 0777, true);
 
-    writeLog('cd '. $directory . ' && git clone -b ' . $branch . ' ' . $sshUrl . ' .');
-    exec('cd '. $directory . ' && git clone -b ' . $branch . ' ' . $sshUrl . ' .');
+    writeLog('git clone -b ' . $branch . ' ' . $sshUrl . ' ' . $directory);
+    exec('git clone -b ' . $branch . ' ' . $sshUrl . ' ' . $directory);
 }
 
 function writeLog($data) {
