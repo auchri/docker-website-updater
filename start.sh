@@ -11,7 +11,7 @@ ssh-keyscan "${GITLAB_URL}" >> ~/.ssh/known_hosts
 
 # Add private key to ssh
 chmod 600 "${KEY_FILE}"
-eval "$(ssh-agent)"
+eval "$(ssh-agent -s)"
 ssh-add "${KEY_FILE}"
 
 source /configure.sh
