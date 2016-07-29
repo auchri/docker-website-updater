@@ -44,16 +44,21 @@ foreach($websites as $website) {
     if(!isset($website['path']) || !isset($website['directory'])) {
         continue;
     }
-    
+
     $path = $website['path'];
     $directory = $website['directory'];
     $branch = isset($website['branch']) ? $website['branch'] : 'master';
-    
+
     if($project->path_with_namespace != $path || $data->ref != 'refs/heads/' . $branch) {
         continue;
     }
+
+    updateWebSite($project->git_ssh_url, $branch, $directory);
+    break;
+}
+
+updateWebSite($sshUrl, $branch, $directory) {
     
-    writeLog($project->git_ssh_url);
 }
 
 function writeLog($data) {
