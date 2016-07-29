@@ -1,31 +1,5 @@
 <?php
 
-function isCorrectPassword() {
-    $password = getenv('PASSWORD');
-
-    if($password === false || empty($password)) {
-        return true;
-    }
-
-    if(!isset($_GET['password']) || $_GET['password'] != $password) {
-        return false;
-    }
-
-    return true;
-}
-
-function isHeaderSet() {
-    if(!isset($_SERVER['HTTP_X_GITLAB_EVENT'])) {
-        return false;
-    }
-
-    if($_SERVER['HTTP_X_GITLAB_EVENT'] != 'Push Hook') {
-        return false;
-    }
-
-    return true;
-}
-
 if(!isHeaderSet() || !isCorrectPassword()) {
     header('HTTP/1.0 403 Forbidden', true, 403);
     exit();
@@ -57,10 +31,39 @@ foreach($websites as $website) {
     break;
 }
 
-updateWebSite($sshUrl, $branch, $directory) {
-    
+function isCorrectPassword() {
+    $password = getenv('PASSWORD');
+
+    if($password === false || empty($password)) {
+        return true;
+    }
+
+    if(!isset($_GET['password']) || $_GET['password'] != $password) {
+        return false;
+    }
+
+    return true;
+}
+
+function isHeaderSet() {
+    if(!isset($_SERVER['HTTP_X_GITLAB_EVENT'])) {
+        return false;
+    }
+
+    if($_SERVER['HTTP_X_GITLAB_EVENT'] != 'Push Hook') {
+        return false;
+    }
+
+    return true;
+}
+
+function updateWebSite($sshUrl, $branch, $directory) {
+    mkdir($directory, 0777, true);
+
+    writeLog('cd '. $directory . ' && git clone -b ' . $branch . ' ' . $sshUrl . ' .');
+    exec('cd '. $directory . ' && git clone -b ' . $branch . ' ' . $sshUrl . ' .');
 }
 
 function writeLog($data) {
-    file_put_contents('log.txt', $data, FILE_APPEND);
+    file_put_contents('log.txt', $data . "\n", FILE_APPEND);
 }
