@@ -4,7 +4,7 @@
 
 DISABLE_FUNCTIONS="passthru,system,proc_open,popen,show_source"
 
-ssh-agent /bin/bash
+eval "$(ssh-agent)"
 ssh-add /var/www/config/private.key
 
 source /configure.sh
