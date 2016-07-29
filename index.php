@@ -59,9 +59,11 @@ function isHeaderSet() {
 
 function updateWebSite($sshUrl, $branch, $directory) {
     mkdir($directory, 0777, true);
+    $command = 'git clone -b ' . $branch . ' ' . $sshUrl . ' ' . $directory;
 
-    writeLog('git clone -b ' . $branch . ' ' . $sshUrl . ' ' . $directory);
-    exec('git clone -b ' . $branch . ' ' . $sshUrl . ' ' . $directory);
+    writeLog($command);
+    $result = shell_exec($command);
+    writeLog($result);
 }
 
 function writeLog($data) {
