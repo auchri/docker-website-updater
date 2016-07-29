@@ -8,7 +8,7 @@ ADD index.php /var/www/html/index.php
 RUN rm /var/www/html/index.html
 
 # Add config file
-ADD config/ /var/www/config/
+ADD config/ /var/www/html/.config/
 
 ADD start.sh /start.sh
 
