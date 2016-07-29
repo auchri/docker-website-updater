@@ -12,6 +12,9 @@ RUN rm "${WEB_ROOT}/html/index.html"
 # Add config file
 ADD config/ "${WEB_ROOT}/config/"
 
+# Set owner
+RUN chown www-data:www-data "${WEB_ROOT}" -R
+
 ADD start.sh /start.sh
 
 CMD ["/start.sh"]
