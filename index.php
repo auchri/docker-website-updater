@@ -27,6 +27,10 @@ foreach($websites as $website) {
         continue;
     }
 
+    if(substr($directory, -1) != '/') {
+        $directory .= '/';
+    }
+
     updateWebSite($project->git_ssh_url, $branch, $directory);
     break;
 }
@@ -59,11 +63,13 @@ function isHeaderSet() {
 
 function updateWebSite($sshUrl, $branch, $directory) {
     mkdir($directory, 0777, true);
-    $command = 'git clone -b ' . $branch . ' ' . $sshUrl . ' ' . $directory;
+    $command = 'cd ' . $directory . ' && rm -rf ..?* .[!.]* * && git clone -b ' . $branch . ' ' . $sshUrl . ' .';
 
     writeLog($command);
     $result = shell_exec($command);
     writeLog($result);
+    exec('rm -rf ' . $directory . '.git');
+    writeLog('rm -rf ' . $directory . '.git');
 }
 
 function writeLog($data) {
