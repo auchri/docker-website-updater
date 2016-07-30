@@ -5,7 +5,7 @@ gitPull() {
     local BRANCH=$2
     local DIRECTORY=$3
 
-    cd "$DIRECTORY" 
+    cd "$DIRECTORY"
     rm -rf ..?* .[!.]* *
     git clone -b "$BRANCH" "$SSH_URL" .
 

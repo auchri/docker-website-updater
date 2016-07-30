@@ -19,10 +19,10 @@ ADD config/ "${CONFIG_DIR}/"
 RUN chown www-data:www-data "${WEB_ROOT}" -R
 
 # Create ssh dir
-RUN mkdir -p "~/.ssh"
+RUN mkdir -p ~/.ssh
 
 # Link private key
-RUN ln -s "${CONFIG_DIR}/private.key" "~/.ssh/id_rsa"
+RUN ln -s "${CONFIG_DIR}/private.key" ~/.ssh/id_rsa
 
 ADD start.sh /start.sh
 ADD pull.sh /pull.sh
