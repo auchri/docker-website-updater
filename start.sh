@@ -7,6 +7,7 @@ DISABLE_FUNCTIONS="passthru,system,proc_open,popen,show_source"
 KEY_FILE="~/.ssh/id_rsa"
 
 # Add gitlab to known hosts
+touch ~/.ssh/known_hosts
 ssh-keyscan -t rsa "${GITLAB_URL}" >> ~/.ssh/known_hosts
 
 # Add private key to ssh
