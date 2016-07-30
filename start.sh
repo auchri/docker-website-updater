@@ -7,7 +7,7 @@ DISABLE_FUNCTIONS="passthru,system,proc_open,popen,show_source"
 KEY_FILE="/var/www/config/private.key"
 
 # Add gitlab to known hosts
-ssh-keyscan "${GITLAB_URL}" >> ~/.ssh/known_hosts
+sudo -H -u www-data sh -c "ssh-keyscan ${GITLAB_URL} >> ~/.ssh/known_hosts"
 
 # Add private key to ssh
 chmod 600 "${KEY_FILE}"

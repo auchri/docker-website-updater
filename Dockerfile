@@ -1,28 +1,28 @@
 FROM auchri/docker-apache-php
 MAINTAINER Christoph Auer <auer.chrisi@gmx.net>
 
-RUN apt-get update && apt-get -y install git && apt-get clean && rm -r /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y install sudo git && apt-get clean && rm -r /var/lib/apt/lists/*
 
 ARG WEB_ROOT=/var/www
-ARG HTML="${WEB_ROOT}/html"
-ARG CONFIG="${WEB_ROOT}/config"
-ARG SSH="${WEB_ROOT}/.ssh"
+ARG HTML_DIR="${WEB_ROOT}/html"
+ARG CONFIG_DIR="${WEB_ROOT}/config"
+ARG SSH_DIR="${WEB_ROOT}/.ssh"
 
 # Add index file
-ADD index.php "${HTML}/index.php"
-RUN rm "${HTML}/index.html"
+ADD index.php "${HTML_DIR}/index.php"
+RUN rm "${HTML_DIR}/index.html"
 
 # Add config file
-ADD config/ "${CONFIG}/"
-
-# Create ssh dir
-RUN mkdir "${SSH}"
-
-# Link private key
-RUN ln -s "${CONFIG}/private.key" "${SSH}/id_rsa"
+ADD config/ "${CONFIG_DIR}/"
 
 # Set owner
 RUN chown www-data:www-data "${WEB_ROOT}" -R
+
+# Create ssh dir
+RUN sudo -H -u www-data sh -c "mkdir ~/.ssh"
+
+# Link private key
+RUN sudo -H -u www-data sh -c "ln -s ${CONFIG_DIR}/private.key ~/.ssh/id_rsa"
 
 ADD start.sh /start.sh
 
