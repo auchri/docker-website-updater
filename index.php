@@ -14,6 +14,8 @@ if(!isset($websites) || !is_array($websites)) {
 $data = json_decode(file_get_contents("php://input"));
 $project = $data->project;
 
+$found = false;
+
 foreach($websites as $website) {
     if(!isset($website['path']) || !isset($website['directory'])) {
         continue;
@@ -32,7 +34,13 @@ foreach($websites as $website) {
     }
 
     updateWebSite($project->git_ssh_url, $branch, $directory);
+    $found = true;
     break;
+}
+
+if(!$found) {
+    writeLog('Did not found website: ' . $project->path_with_namespace);
+    writeLog(print_r($project, true));
 }
 
 function isCorrectPassword() {
