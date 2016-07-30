@@ -71,5 +71,5 @@ function updateWebSite($sshUrl, $branch, $directory) {
 }
 
 function writeLog($data) {
-    file_put_contents('log.txt', $data . "\n", FILE_APPEND);
+    file_put_contents('../log.txt', $data . "\n", FILE_APPEND);
 }
