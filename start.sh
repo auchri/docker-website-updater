@@ -4,7 +4,7 @@
 [[ ! $GITLAB_URL ]] && GITLAB_URL=""
 
 DISABLE_FUNCTIONS="passthru,system,proc_open,popen,show_source"
-KEY_FILE="~/.ssh/id_rsa"
+KEY_FILE=~/.ssh/id_rsa
 
 # Add gitlab to known hosts
 touch ~/.ssh/known_hosts
