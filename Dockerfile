@@ -19,11 +19,14 @@ ADD config/ "${CONFIG_DIR}/"
 RUN chown www-data:www-data "${WEB_ROOT}" -R
 
 # Create ssh dir
-RUN sudo -H -u www-data sh -c "mkdir ~/.ssh"
+RUN mkdir -p "~/.ssh"
 
 # Link private key
-RUN sudo -H -u www-data sh -c "ln -s ${CONFIG_DIR}/private.key ~/.ssh/id_rsa"
+RUN ln -s "${CONFIG_DIR}/private.key" "~/.ssh/id_rsa"
 
 ADD start.sh /start.sh
+ADD pull.sh /pull.sh
+
+RUN echo "www-data ALL = (root) NOPASSWD: /pull.sh" >> /etc/sudoers
 
 CMD ["/start.sh"]

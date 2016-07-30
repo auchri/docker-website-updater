@@ -63,13 +63,11 @@ function isHeaderSet() {
 
 function updateWebSite($sshUrl, $branch, $directory) {
     mkdir($directory, 0777, true);
-    $command = 'cd ' . $directory . ' && rm -rf ..?* .[!.]* * && git clone -b ' . $branch . ' ' . $sshUrl . ' .';
+    $command = 'sudo /pull.sh ' . $sshUrl . ' ' . $branch . ' ' . $directory;
 
     writeLog($command);
     $result = shell_exec($command);
     writeLog($result);
-    exec('rm -rf ' . $directory . '.git');
-    writeLog('rm -rf ' . $directory . '.git');
 }
 
 function writeLog($data) {
