@@ -6,7 +6,6 @@ RUN apt-get update && apt-get -y install sudo git && apt-get clean && rm -r /var
 ARG WEB_ROOT=/var/www
 ARG HTML_DIR="${WEB_ROOT}/html"
 ARG CONFIG_DIR="${WEB_ROOT}/config"
-ARG SSH_DIR="${WEB_ROOT}/.ssh"
 
 # Add index file
 ADD index.php "${HTML_DIR}/index.php"
@@ -23,6 +22,11 @@ RUN mkdir -p ~/.ssh
 
 # Link private key
 RUN ln -s "${CONFIG_DIR}/private.key" ~/.ssh/id_rsa
+
+# Set ssh config
+RUN touch ~/.ssh/config
+RUN echo "Host *" >> ~/.ssh/config
+RUN echo "    StrictHostKeyChecking  no" >> ~/.ssh/config
 
 ADD start.sh /start.sh
 ADD pull.sh /pull.sh
